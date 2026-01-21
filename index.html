@@ -3,217 +3,466 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIN Newsletter</title>
+    <title>MIN - Market Intelligence Newsletter</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #FAFAF7;
-            margin: 0;
+            background: #FAFAF7;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        
         .header {
             background: linear-gradient(135deg, #c8102e 0%, #000000 100%);
             color: white;
-            padding: 35px 25px;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
             display: flex;
             align-items: center;
             gap: 20px;
         }
+        
         .header img {
             max-width: 70px;
             height: auto;
         }
+        
         .header-content {
             flex: 1;
         }
+        
         .header h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 8px;
             letter-spacing: 2px;
         }
-        .header .subtitle {
-            margin: 8px 0 0;
-            font-size: 14px;
-            opacity: 0.9;
-            letter-spacing: 1px;
-        }
-        .header .tagline {
-            margin: 12px 0 0;
-            font-size: 13px;
-            opacity: 0.8;
-            font-style: italic;
-        }
-        .toc {
-            background-color: #f8f9fa;
-            padding: 20px 25px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-        .toc h3 {
-            margin: 0 0 12px;
-            font-size: 15px;
-            color: #333;
-            font-weight: 600;
-        }
-        .toc-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            font-size: 13px;
-        }
-        .toc-item {
+        
+        .header-meta {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
+            font-size: 14px;
+            opacity: 0.95;
+            margin-top: 8px;
         }
-        .toc-icon {
+        
+        .edition-info {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-bar {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            border-bottom: 3px solid #c8102e;
+        }
+        
+        .nav-label {
+            font-weight: 600;
+            color: white;
+            margin-right: 10px;
+        }
+        
+        .nav-btn {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .nav-btn:hover {
+            background: #c8102e;
+            color: white;
+            border-color: #c8102e;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(200, 16, 46, 0.2);
+        }
+        
+        .nav-btn.priority-high {
+            background: #ffe8e8;
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+        
+        .nav-btn.priority-high:hover {
+            background: #ff4444;
+            color: white;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .executive-summary {
+            background: #fff9e6;
+            border-left: 4px solid #ffa500;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .executive-summary h2 {
+            color: #c8102e;
             font-size: 18px;
+            margin-bottom: 12px;
         }
-        .section {
-            padding: 25px;
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
+        
+        .summary-card {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #c8102e;
+        }
+        
+        .summary-card h3 {
+            font-size: 14px;
+            color: #c8102e;
+            margin-bottom: 6px;
+        }
+        
+        .summary-card p {
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .content-section {
+            padding: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content-section:last-child {
+            border-bottom: none;
+        }
+        
         .section-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
             margin-bottom: 20px;
             padding-bottom: 12px;
             border-bottom: 3px solid #c8102e;
         }
+        
         .section-header h2 {
-            margin: 0;
-            font-size: 20px;
             color: #c8102e;
-            font-weight: 700;
+            font-size: 22px;
         }
-        .section-icon {
-            font-size: 26px;
+        
+        .category-badge {
+            background: #000000;
+            color: #c8102e;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
         }
-        .article {
-            margin-bottom: 25px;
-            padding: 18px;
-            background-color: #fafafa;
+        
+        .category-badge.enrollment {
+            background: #000000;
+            color: #c8102e;
+        }
+        
+        .category-badge.policy {
+            background: #000000;
+            color: #c8102e;
+        }
+        
+        .category-badge.competition {
+            background: #000000;
+            color: #c8102e;
+        }
+        
+        .category-badge.technology {
+            background: #000000;
+            color: #c8102e;
+        }
+        
+        .category-badge.market {
+            background: #000000;
+            color: #c8102e;
+        }
+        
+        .insight-card {
+            background: #f9f9f9;
             border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
             border-left: 4px solid #c8102e;
-            transition: all 0.2s ease;
         }
-        .article:hover {
-            background-color: #f5f5f5;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .article-header {
+        
+        .insight-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            gap: 12px;
+            align-items: start;
+            margin-bottom: 15px;
         }
-        .article-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin: 0;
-            line-height: 1.4;
+        
+        .insight-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
             flex: 1;
         }
-        .impact-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 14px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
-        }
-        .impact-enrollment {
-            background-color: #c8102e;
-            color: white;
-        }
-        .impact-policy {
-            background-color: #0066cc;
-            color: white;
-        }
-        .impact-competition {
-            background-color: #6f42c1;
-            color: white;
-        }
-        .impact-technology {
-            background-color: #20c997;
-            color: white;
-        }
-        .impact-market {
-            background-color: #fd7e14;
-            color: white;
-        }
-        .article-meta {
-            font-size: 12px;
-            color: #666;
-            margin: 8px 0;
-        }
+        
         .tags {
             display: flex;
+            gap: 8px;
             flex-wrap: wrap;
-            gap: 6px;
-            margin: 10px 0;
+            margin-top: 8px;
         }
+        
         .tag {
-            display: inline-block;
-            padding: 3px 10px;
-            background-color: #e9ecef;
-            color: #495057;
-            border-radius: 12px;
+            background: #e3e3e3;
+            padding: 4px 10px;
+            border-radius: 4px;
             font-size: 11px;
+            color: #555;
             font-weight: 600;
         }
-        .article-summary {
-            font-size: 14px;
-            color: #555;
-            margin: 12px 0;
-            line-height: 1.6;
-        }
-        .read-more {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 18px;
-            background-color: #c8102e;
+        
+        .tag.dept {
+            background: #c8102e;
             color: white;
-            text-decoration: none;
-            border-radius: 5px;
+        }
+        
+        .metric-highlight {
+            display: inline-flex;
+            align-items: center;
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 10px 10px 10px 0;
+            border: 2px solid #e3e3e3;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c8102e;
+            margin-right: 8px;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .trend-up {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .trend-down {
+            color: #ff4444;
+            font-weight: bold;
+        }
+        
+        .action-box {
+            background: #e8f4f8;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        
+        .action-box h4 {
+            color: #2196F3;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .action-box ul {
+            margin-left: 20px;
+            font-size: 14px;
+        }
+        
+        .action-box li {
+            margin-bottom: 5px;
+        }
+        
+        .data-viz {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .comparison-table th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .neu-row {
+            background: #fff9e6;
+            font-weight: 600;
+        }
+        
+        .source {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .quick-stat {
+            display: inline-block;
+            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 10px 10px 10px 0;
+            min-width: 140px;
+        }
+        
+        .quick-stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .quick-stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+            display: block;
+        }
+        
+        .looking-ahead {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .looking-ahead h3 {
+            color: #c8102e;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        
+        .looking-ahead ul {
+            margin-left: 20px;
+        }
+        
+        .looking-ahead li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .chart-container {
+            margin: 20px 0;
+        }
+        
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .bar-label {
+            min-width: 120px;
             font-size: 13px;
             font-weight: 600;
-            transition: background-color 0.2s;
         }
-        .read-more:hover {
-            background-color: #a00d24;
+        
+        .bar-container {
+            flex: 1;
+            background: #f0f0f0;
+            border-radius: 4px;
+            height: 30px;
+            position: relative;
+            overflow: hidden;
         }
-        .divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
-            margin: 30px 25px;
+        
+        .bar-fill {
+            background: linear-gradient(90deg, #c8102e 0%, #ff6b6b 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            transition: width 1s ease;
         }
+        
+        .bar-fill.neu {
+            background: linear-gradient(90deg, #2196F3 0%, #64B5F6 100%);
+        }
+
         .footer {
             background-color: #2c3e50;
             color: #ecf0f1;
             padding: 25px;
             text-align: center;
             font-size: 13px;
+            border-radius: 0 0 8px 8px;
         }
+        
         .footer a {
             color: #c8102e;
             text-decoration: none;
             font-weight: 600;
         }
+        
         .footer a:hover {
             text-decoration: underline;
         }
@@ -221,307 +470,330 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
-            <img src="https://news.northeastern.edu/wp-content/uploads/2018/08/king_husky_logo_1400.jpg" alt="Northeastern University">
+            <img src="https://nustbrand.wpengine.com/wp-content/uploads/2022/06/ac-grid-5-red.svg" alt="Northeastern University">
             <div class="header-content">
-                <h1>MIN</h1>
-                <div class="subtitle">MARKET INTELLIGENCE NEWSLETTER</div>
-                <div class="tagline">Week of January 21, 2026 | Enrollment Management Edition</div>
+                <h1>Market Intelligence Newsletter</h1>
+                <div class="header-meta">
+                    <div class="edition-info">
+                        <span>Sample UI | Week of January 21, 2026</span>
+                        <span>Market Research & Analytics Team</span>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- TRENDING SECTION -->
-        <div class="section">
-            <div class="section-header">
-                <span class="section-icon">🔥</span>
-                <h2>TRENDING</h2>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Federal Student Aid Overhaul Announced for 2027</h3>
-                    <span class="impact-badge impact-policy">Policy</span>
-                </div>
-                <div class="article-meta">Chronicle of Higher Education | Jan 20, 2026</div>
-                <div class="tags">
-                    <span class="tag">Financial Aid</span>
-                    <span class="tag">Policy</span>
-                    <span class="tag">Enrollment</span>
-                </div>
-                <div class="article-summary">
-                    Department of Education announces major restructuring of federal student aid programs, simplifying FAFSA to 15 questions and expanding Pell Grant eligibility to include part-time students. Changes expected to impact enrollment patterns across all institutions starting Fall 2027.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Gen Z Enrollment Preferences Shift Toward Hybrid Models</h3>
-                    <span class="impact-badge impact-enrollment">Enrollment</span>
-                </div>
-                <div class="article-meta">Inside Higher Ed | Jan 19, 2026</div>
-                <div class="tags">
-                    <span class="tag">Trends</span>
-                    <span class="tag">Gen Z</span>
-                    <span class="tag">Hybrid Learning</span>
-                </div>
-                <div class="article-summary">
-                    Latest survey reveals 68% of incoming students prefer hybrid learning options over fully in-person or online programs. Traditional residential models seeing 15% decline in appeal among high school seniors, with flexibility cited as primary decision factor.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Northeastern Competitors Increase Merit Aid by Average 22%</h3>
-                    <span class="impact-badge impact-competition">Competition</span>
-                </div>
-                <div class="article-meta">Boston Business Journal | Jan 18, 2026</div>
-                <div class="tags">
-                    <span class="tag">Competition</span>
-                    <span class="tag">Financial Aid</span>
-                    <span class="tag">Boston</span>
-                </div>
-                <div class="article-summary">
-                    BU, BC, and Tufts announce significant increases in merit-based scholarship offerings for Fall 2026 admission cycle. Average awards increased from $18K to $22K annually as institutions compete for top-tier students in increasingly competitive market.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">STEM Enrollment Reaches Record Highs Nationwide</h3>
-                    <span class="impact-badge impact-enrollment">Enrollment</span>
-                </div>
-                <div class="article-meta">Education Week | Jan 17, 2026</div>
-                <div class="tags">
-                    <span class="tag">STEM</span>
-                    <span class="tag">Enrollment Trends</span>
-                    <span class="tag">National</span>
-                </div>
-                <div class="article-summary">
-                    National data shows STEM program applications up 31% year-over-year, with computer science, data analytics, and bioengineering leading growth. Liberal arts programs experiencing corresponding 12% decline in first-choice applications.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Massachusetts Announces Free Community College Initiative</h3>
-                    <span class="impact-badge impact-policy">Policy</span>
-                </div>
-                <div class="article-meta">Boston Globe | Jan 16, 2026</div>
-                <div class="tags">
-                    <span class="tag">Policy</span>
-                    <span class="tag">Community College</span>
-                    <span class="tag">Massachusetts</span>
-                </div>
-                <div class="article-summary">
-                    State legislature passes bill making community college tuition-free for all Massachusetts residents starting Fall 2026. Analysts predict potential impact on traditional four-year enrollment as students opt for transfer pathway to reduce overall costs.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
+        
+        <div class="nav-bar">
+            <span class="nav-label">Jump to:</span>
+            <a href="#trending" class="nav-btn priority-high">Trending</a>
+            <a href="#ai-tech" class="nav-btn">AI & Technology</a>
+            <a href="#neu-updates" class="nav-btn">NEU Updates</a>
+            <a href="#competitors" class="nav-btn">Competitors</a>
+            <a href="#international" class="nav-btn">International</a>
         </div>
-
-        <div class="divider"></div>
-
-        <!-- AI & TECHNOLOGY SECTION -->
-        <div class="section">
-            <div class="section-header">
-                <span class="section-icon">🤖</span>
-                <h2>AI & TECHNOLOGY</h2>
+        
+        <div class="main-content">
+            <div class="executive-summary">
+                <h2>This Week's Key Insights</h2>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h3>Policy Impact</h3>
+                        <p>Federal Student Aid overhaul simplifies FAFSA to 15 questions, expanding Pell Grant eligibility to part-time students starting Fall 2027</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Market Trend</h3>
+                        <p>Gen Z enrollment preferences shift toward hybrid models - 68% prefer flexibility over traditional residential programs</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Competitive Alert</h3>
+                        <p>Boston area competitors increase merit aid by 22% average, raising stakes for Fall 2026 recruitment</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TRENDING SECTION -->
+            <div class="content-section" id="trending">
+                <div class="section-header">
+                    <h2>TRENDING</h2>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div style="flex: 1;">
+                            <div class="insight-title">Federal Student Aid Overhaul Announced for 2027</div>
+                            <div class="tags">
+                                <span class="tag">Financial Aid</span>
+                                <span class="tag">Policy</span>
+                                <span class="tag">Enrollment</span>
+                            </div>
+                        </div>
+                        <span class="category-badge policy">Policy</span>
+                    </div>
+                    
+                    <p style="margin-bottom: 15px;">Department of Education announces major restructuring of federal student aid programs, simplifying FAFSA to 15 questions and expanding Pell Grant eligibility to include part-time students. Changes expected to impact enrollment patterns across all institutions starting Fall 2027.</p>
+                    
+                    <div class="action-box">
+                        <h4>Key Insights</h4>
+                        <ul>
+                            <li>Simplified FAFSA may reduce application friction, potentially increasing aided student applications by 15-20%</li>
+                            <li>Part-time Pell eligibility aligns with NEU's adult learner and CPS program strengths</li>
+                            <li>Competitor institutions likely to adjust packaging strategies - need to monitor</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source">Source: Chronicle of Higher Education | Jan 20, 2026</div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div style="flex: 1;">
+                            <div class="insight-title">Gen Z Enrollment Preferences Shift Toward Hybrid Models</div>
+                            <div class="tags">
+                                <span class="tag">Trends</span>
+                                <span class="tag">Gen Z</span>
+                                <span class="tag">Hybrid Learning</span>
+                            </div>
+                        </div>
+                        <span class="category-badge enrollment">Enrollment</span>
+                    </div>
+                    
+                    <p style="margin-bottom: 15px;">Latest survey reveals 68% of incoming students prefer hybrid learning options over fully in-person or online programs. Traditional residential models seeing 15% decline in appeal among high school seniors, with flexibility cited as primary decision factor.</p>
+                    
+                    <div style="margin: 15px 0;">
+                        <div class="metric-highlight">
+                            <div>
+                                <div class="metric-value">68%</div>
+                                <div class="metric-label">Prefer hybrid options</div>
+                            </div>
+                        </div>
+                        <div class="metric-highlight">
+                            <div>
+                                <div class="metric-value trend-down">-15%</div>
+                                <div class="metric-label">Traditional model appeal</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-box">
+                        <h4>Key Insights</h4>
+                        <ul>
+                            <li>NEU's global campus network positions us well to offer authentic hybrid experiences</li>
+                            <li>Co-op integration provides real-world flexibility that resonates with Gen Z values</li>
+                            <li>Need to clearly communicate hybrid pathways in recruitment materials</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source">Source: Inside Higher Ed | Jan 19, 2026</div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div style="flex: 1;">
+                            <div class="insight-title">Northeastern Competitors Increase Merit Aid by Average 22%</div>
+                            <div class="tags">
+                                <span class="tag">Competition</span>
+                                <span class="tag">Financial Aid</span>
+                                <span class="tag">Boston</span>
+                            </div>
+                        </div>
+                        <span class="category-badge competition">Competition</span>
+                    </div>
+                    
+                    <p style="margin-bottom: 15px;">BU, BC, and Tufts announce significant increases in merit-based scholarship offerings for Fall 2026 admission cycle. Average awards increased from $18K to $22K annually as institutions compete for top-tier students in increasingly competitive market.</p>
+                    
+                    <div class="data-viz">
+                        <strong>Merit Aid Comparison - Boston Area Competitors</strong>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Institution</th>
+                                    <th>FY25 Avg Merit</th>
+                                    <th>FY26 Avg Merit</th>
+                                    <th>Change</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Boston University</td>
+                                    <td>$18,000</td>
+                                    <td>$22,500</td>
+                                    <td><span class="trend-up">+25%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Boston College</td>
+                                    <td>$17,500</td>
+                                    <td>$21,000</td>
+                                    <td><span class="trend-up">+20%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Tufts University</td>
+                                    <td>$19,000</td>
+                                    <td>$23,500</td>
+                                    <td><span class="trend-up">+24%</span></td>
+                                </tr>
+                                <tr class="neu-row">
+                                    <td>Northeastern</td>
+                                    <td>$20,000</td>
+                                    <td>$21,500</td>
+                                    <td><span class="trend-up">+8%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="source">Source: Institutional financial aid announcements</div>
+                    </div>
+                    
+                    <div class="action-box">
+                        <h4>Key Insights</h4>
+                        <ul>
+                            <li>Competitors are aggressively increasing merit aid to capture top students</li>
+                            <li>NEU's 8% increase lags market - may impact yield for high-stat admits</li>
+                            <li>Need to emphasize co-op earnings potential as differentiator ($20-30K over 5 years)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source">Source: Boston Business Journal | Jan 18, 2026</div>
+                </div>
             </div>
 
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">AI Chatbots Reduce Admissions Response Time by 73%</h3>
-                    <span class="impact-badge impact-technology">Technology</span>
+            <!-- AI & TECHNOLOGY SECTION -->
+            <div class="content-section" id="ai-tech">
+                <div class="section-header">
+                    <h2>AI & TECHNOLOGY</h2>
                 </div>
-                <div class="article-meta">EdTech Magazine | Jan 20, 2026</div>
-                <div class="tags">
-                    <span class="tag">AI</span>
-                    <span class="tag">Admissions</span>
-                    <span class="tag">Efficiency</span>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div style="flex: 1;">
+                            <div class="insight-title">AI Chatbots Reduce Admissions Response Time by 73%</div>
+                            <div class="tags">
+                                <span class="tag">AI</span>
+                                <span class="tag">Admissions</span>
+                                <span class="tag">Efficiency</span>
+                            </div>
+                        </div>
+                        <span class="category-badge technology">Technology</span>
+                    </div>
+                    
+                    <p>Universities implementing AI-powered chatbots for admissions inquiries report dramatic improvements in response times and applicant satisfaction. Systems now handle 80% of routine questions, freeing staff for personalized outreach to high-priority prospects.</p>
+                    
+                    <div class="source">Source: EdTech Magazine | Jan 20, 2026</div>
                 </div>
-                <div class="article-summary">
-                    Universities implementing AI-powered chatbots for admissions inquiries report dramatic improvements in response times and applicant satisfaction. Systems now handle 80% of routine questions, freeing staff for personalized outreach to high-priority prospects.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
             </div>
 
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Predictive Analytics Transform Yield Management Strategies</h3>
-                    <span class="impact-badge impact-technology">Technology</span>
+            <!-- NEU UPDATES SECTION -->
+            <div class="content-section" id="neu-updates">
+                <div class="section-header">
+                    <h2>NORTHEASTERN UPDATES</h2>
                 </div>
-                <div class="article-meta">Campus Technology | Jan 18, 2026</div>
-                <div class="tags">
-                    <span class="tag">Analytics</span>
-                    <span class="tag">Yield</span>
-                    <span class="tag">Data Science</span>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div style="flex: 1;">
+                            <div class="insight-title">Record 47,000 Applications for Fall 2026 Admission</div>
+                            <div class="tags">
+                                <span class="tag">Admissions</span>
+                                <span class="tag">Statistics</span>
+                                <span class="tag">Growth</span>
+                            </div>
+                        </div>
+                        <span class="category-badge enrollment">Enrollment</span>
+                    </div>
+                    
+                    <p style="margin-bottom: 15px;">NEU receives record-breaking 47,000 applications for Fall 2026 undergraduate admission, up 9% from previous year. International applications increased 14%, with significant growth from India, China, and Nigeria. Computer science and business programs saw highest demand.</p>
+                    
+                    <div style="margin: 15px 0;">
+                        <div class="quick-stat">
+                            <span class="quick-stat-value">47K</span>
+                            <span class="quick-stat-label">Total applications</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span class="quick-stat-value">+9%</span>
+                            <span class="quick-stat-label">Year-over-year growth</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span class="quick-stat-value">+14%</span>
+                            <span class="quick-stat-label">International apps</span>
+                        </div>
+                    </div>
+                    
+                    <div class="source">Source: Northeastern Today | Jan 17, 2026</div>
                 </div>
-                <div class="article-summary">
-                    Advanced machine learning models now predict enrollment likelihood with 91% accuracy, enabling highly targeted recruitment campaigns. Early adopters report 8-12% improvements in yield rates and more efficient resource allocation across recruitment territories.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
             </div>
 
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Virtual Reality Campus Tours See 300% Increase in Usage</h3>
-                    <span class="impact-badge impact-technology">Technology</span>
+            <!-- COMPETITORS SECTION -->
+            <div class="content-section" id="competitors">
+                <div class="section-header">
+                    <h2>COMPETITORS</h2>
                 </div>
-                <div class="article-meta">The Verge | Jan 15, 2026</div>
-                <div class="tags">
-                    <span class="tag">VR</span>
-                    <span class="tag">Campus Tours</span>
-                    <span class="tag">Innovation</span>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div style="flex: 1;">
+                            <div class="insight-title">Boston University Launches New Global Scholars Program</div>
+                            <div class="tags">
+                                <span class="tag">Boston University</span>
+                                <span class="tag">Scholarships</span>
+                                <span class="tag">International</span>
+                            </div>
+                        </div>
+                        <span class="category-badge competition">Competition</span>
+                    </div>
+                    
+                    <p style="margin-bottom: 15px;">BU announces $30M scholarship initiative targeting high-achieving international students, offering full tuition plus stipends for top 100 admits from underrepresented countries. Program directly competes with similar offerings at peer institutions.</p>
+                    
+                    <div class="action-box">
+                        <h4>Key Insights</h4>
+                        <ul>
+                            <li>$30M investment signals BU's aggressive international recruitment strategy</li>
+                            <li>Focus on underrepresented countries (Africa, Southeast Asia) overlaps with NEU target markets</li>
+                            <li>Full tuition + stipend package more generous than NEU's current international merit offerings</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source">Source: BU Today | Jan 19, 2026</div>
                 </div>
-                <div class="article-summary">
-                    International and out-of-state prospective students increasingly using VR campus tours as primary method of experiencing universities before applying. Technology proving especially popular among international students from Asia and Middle East unable to visit in person.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- NEU UPDATES SECTION -->
-        <div class="section">
-            <div class="section-header">
-                <span class="section-icon">🎓</span>
-                <h2>NORTHEASTERN UPDATES</h2>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">NEU Toronto Campus Expands with New Engineering Building</h3>
-                    <span class="impact-badge impact-enrollment">Enrollment</span>
-                </div>
-                <div class="article-meta">NEU Global News | Jan 19, 2026</div>
-                <div class="tags">
-                    <span class="tag">Campus Expansion</span>
-                    <span class="tag">Toronto</span>
-                    <span class="tag">Engineering</span>
-                </div>
-                <div class="article-summary">
-                    $45M investment in new engineering and innovation center at Toronto campus set to open Fall 2026. Facility will house cutting-edge labs for robotics, AI research, and sustainable engineering, with capacity to double current engineering enrollment at the campus.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
             </div>
 
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Record 47,000 Applications for Fall 2026 Admission</h3>
-                    <span class="impact-badge impact-enrollment">Enrollment</span>
+            <!-- INTERNATIONAL SECTION -->
+            <div class="content-section" id="international">
+                <div class="section-header">
+                    <h2>INTERNATIONAL</h2>
                 </div>
-                <div class="article-meta">Northeastern Today | Jan 17, 2026</div>
-                <div class="tags">
-                    <span class="tag">Admissions</span>
-                    <span class="tag">Statistics</span>
-                    <span class="tag">Growth</span>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div style="flex: 1;">
+                            <div class="insight-title">UK Post-Study Work Visa Extended to 3 Years</div>
+                            <div class="tags">
+                                <span class="tag">UK</span>
+                                <span class="tag">Visa Policy</span>
+                                <span class="tag">International Students</span>
+                            </div>
+                        </div>
+                        <span class="category-badge policy">Policy</span>
+                    </div>
+                    
+                    <p style="margin-bottom: 15px;">UK government extends post-study work visa from 2 to 3 years for all degree levels, making UK increasingly competitive destination for international students. Policy change expected to significantly boost applications to UK universities, including NEU London campus.</p>
+                    
+                    <div class="action-box">
+                        <h4>Key Insights</h4>
+                        <ul>
+                            <li>3-year work visa makes UK more attractive than US 1-year OPT for many students</li>
+                            <li>Opportunity for NEU London campus to leverage this advantage in recruitment</li>
+                            <li>May see some students choose UK pathway over US Boston campus</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source">Source: The Guardian | Jan 20, 2026</div>
                 </div>
-                <div class="article-summary">
-                    NEU receives record-breaking 47,000 applications for Fall 2026 undergraduate admission, up 9% from previous year. International applications increased 14%, with significant growth from India, China, and Nigeria. Computer science and business programs saw highest demand.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- COMPETITORS SECTION -->
-        <div class="section">
-            <div class="section-header">
-                <span class="section-icon">⚔️</span>
-                <h2>COMPETITORS</h2>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Boston University Launches New Global Scholars Program</h3>
-                    <span class="impact-badge impact-competition">Competition</span>
-                </div>
-                <div class="article-meta">BU Today | Jan 19, 2026</div>
-                <div class="tags">
-                    <span class="tag">Boston University</span>
-                    <span class="tag">Scholarships</span>
-                    <span class="tag">International</span>
-                </div>
-                <div class="article-summary">
-                    BU announces $30M scholarship initiative targeting high-achieving international students, offering full tuition plus stipends for top 100 admits from underrepresented countries. Program directly competes with similar offerings at peer institutions.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">MIT Expands Online Master's Programs in Computer Science</h3>
-                    <span class="impact-badge impact-competition">Competition</span>
-                </div>
-                <div class="article-meta">MIT News | Jan 18, 2026</div>
-                <div class="tags">
-                    <span class="tag">MIT</span>
-                    <span class="tag">Online Education</span>
-                    <span class="tag">Computer Science</span>
-                </div>
-                <div class="article-summary">
-                    MIT announces significant expansion of online graduate programs, adding three new specializations in AI, cybersecurity, and data engineering. Programs priced at $15K, positioning MIT competitively in affordable online graduate market.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- INTERNATIONAL SECTION -->
-        <div class="section">
-            <div class="section-header">
-                <span class="section-icon">🌍</span>
-                <h2>INTERNATIONAL</h2>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">UK Post-Study Work Visa Extended to 3 Years</h3>
-                    <span class="impact-badge impact-policy">Policy</span>
-                </div>
-                <div class="article-meta">The Guardian | Jan 20, 2026</div>
-                <div class="tags">
-                    <span class="tag">UK</span>
-                    <span class="tag">Visa Policy</span>
-                    <span class="tag">International Students</span>
-                </div>
-                <div class="article-summary">
-                    UK government extends post-study work visa from 2 to 3 years for all degree levels, making UK increasingly competitive destination for international students. Policy change expected to significantly boost applications to UK universities, including NEU London campus.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
-            </div>
-
-            <div class="article">
-                <div class="article-header">
-                    <h3 class="article-title">Indian Student Outbound Mobility Projected to Double by 2028</h3>
-                    <span class="impact-badge impact-market">Market</span>
-                </div>
-                <div class="article-meta">Times of India | Jan 18, 2026</div>
-                <div class="tags">
-                    <span class="tag">India</span>
-                    <span class="tag">Student Mobility</span>
-                    <span class="tag">Market Growth</span>
-                </div>
-                <div class="article-summary">
-                    India projected to send over 2.5 million students abroad by 2028, doubling current numbers. Rising middle class, increased emphasis on global education, and expanding scholarship opportunities driving unprecedented growth. US, UK, and Canada top destination choices.
-                </div>
-                <a href="#" class="read-more">Read Full Article →</a>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
             <p><strong>Market Intelligence Newsletter (MIN)</strong></p>
-            <p style="margin-top: 10px;">Questions or feedback? Reply to this email or contact the Enrollment Strategy team.</p>
-            <p style="margin-top: 15px;"><a href="#">View Archive</a> | <a href="#">Manage Preferences</a> | <a href="#">Unsubscribe</a></p>
+            <p style="margin-top: 10px;">Questions or feedback? Contact the Enrollment Strategy team.</p>
+            <p style="margin-top: 15px;"><a href="#">View Archive</a> | <a href="#">Manage Preferences</a></p>
             <p style="margin-top: 20px; font-size: 11px; opacity: 0.8;">
                 Northeastern University | Office of Enrollment Management<br>
                 This newsletter is for internal use only. Confidential information.
